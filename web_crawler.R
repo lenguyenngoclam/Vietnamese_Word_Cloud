@@ -6,6 +6,7 @@
 # install.packages("readtext")
 # install.packages("flextable")
 # install.packages("webdriver")
+# install.packages("arrow)
 # webdriver::install_phantomjs()
 ## install klippy for copy-to-clipboard button in code chunks
 # install.packages("remotes")
@@ -13,6 +14,7 @@
 
 # load packages
 library(tidyverse)
+library(arrow)
 library(rvest)
 library(readtext)
 library(flextable)
@@ -116,4 +118,6 @@ scrape_vnexpress <- function(main_url, num_of_pages=1000){
 #sentences <- get_page_content(url = "https://vnexpress.net/nha-phat-minh-da-den-tung-canh-tranh-voi-thomas-edison-4684315.html")
 #print(sentences)
 articles <- scrape_vnexpress(main_url = "https://vnexpress.net/khoa-hoc/phat-minh", num_of_pages = 2)
-View(articles)
+#View(articles)
+store_path = "./article_contents"
+articles |> write_dataset(path=store_path, format = "parquet") 
