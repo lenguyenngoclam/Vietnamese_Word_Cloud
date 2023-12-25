@@ -1,0 +1,27 @@
+{
+    "id": "E6B32E30",
+    "path": "~/Desktop/Vietnamese_Word_Cloud/web_crawler.R",
+    "project_path": "web_crawler.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1703490162031.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "89,12",
+        "scrollLine": "87"
+    },
+    "folds": "56|34|75|0|\n",
+    "lastKnownWriteTime": 1703499004,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1703499004187,
+    "read_only": false,
+    "read_only_alternatives": []
+}

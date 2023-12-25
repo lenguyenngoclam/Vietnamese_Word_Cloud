@@ -1,0 +1,29 @@
+# install packages
+#install.packages("rvest")
+#install.packages("readtext")
+#install.packages("webdriver")
+#install.packages("tidyverse")
+#install.packages("readtext")
+#install.packages("flextable")
+#install.packages("webdriver")
+#webdriver::install_phantomjs()
+# install klippy for copy-to-clipboard button in code chunks
+# install.packages("remotes", pkgType="binary")
+#install.packages("remotes")
+#remotes::install_github("rlesur/klippy")
+
+# load packages
+library(tidyverse)
+library(rvest)
+library(readtext)
+library(flextable)
+library(webdriver)
+# activate klippy for copy-to-clipboard button
+klippy::klippy()
+
+# define url
+url <- "https://www.theguardian.com/world/2017/jun/26/angela-merkel-and-donald-trump-head-for-clash-at-g20-summit"
+# download content
+webc <- rvest::read_html(url)
+# inspect
+webc
