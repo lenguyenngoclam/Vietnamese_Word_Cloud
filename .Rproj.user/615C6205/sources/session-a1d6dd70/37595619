@@ -3,7 +3,7 @@
     "path": "~/Desktop/Vietnamese_Word_Cloud/.gitignore",
     "project_path": ".gitignore",
     "type": "gitignore",
-    "hash": "0",
+    "hash": "1608383110",
     "contents": "",
     "dirty": false,
     "created": 1703499697779.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "0,7",
+        "cursorPosition": "1,11",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1703499706,
+    "lastKnownWriteTime": 1703499840,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1703499706938,
+    "last_content_update": 1703499840027,
     "read_only": false,
     "read_only_alternatives": []
 }
