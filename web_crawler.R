@@ -77,7 +77,7 @@ get_page_content <- function(url){
   return (sentences)
 }
 
-scrape_vnexpress <- function(main_url, num_of_pages=1000){
+scrape_vnexpress <- function(main_url, num_of_pages=10){
   print(str_glue("Processing url {main_url}", main_url = main_url))
   # Initialize empty articles tibble
   articles <- tibble(
@@ -113,10 +113,12 @@ scrape_vnexpress <- function(main_url, num_of_pages=1000){
 #print(article_links)
 #sentences <- get_page_content(url = "https://vnexpress.net/nha-phat-minh-da-den-tung-canh-tranh-voi-thomas-edison-4684315.html")
 #print(sentences)
-page_url <- "https://vnexpress.net/khoa-hoc/phat-minh"
-articles_contents <-  scrape_vnexpress(
+page_url <- "https://vnexpress.net/khoa-hoc/ung-dung"
+application_article_contents <-  scrape_vnexpress(
                         main_url = page_url, 
-                        num_of_pages = 5
+                        num_of_pages = 20
                       )
-store_path = "./article_contents"
-article_contents |> write_dataset(path=store_path, format = "parquet") 
+application_article_contents |> write_dataset(
+  path="./application_article_contents", 
+  format = "parquet"
+) 
