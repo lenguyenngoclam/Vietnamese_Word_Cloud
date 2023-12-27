@@ -11,3 +11,7 @@ Encoding: UTF-8
 
 RnwWeave: Sweave
 LaTeX: pdfLaTeX
+
+PythonType: conda
+PythonVersion: 3.10.13
+PythonPath: ~/anaconda3/envs/vietnamese_word_cloud/bin/python3.10
