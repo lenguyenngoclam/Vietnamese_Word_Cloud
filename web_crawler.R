@@ -113,12 +113,12 @@ scrape_vnexpress <- function(main_url, num_of_pages=10){
 #print(article_links)
 #sentences <- get_page_content(url = "https://vnexpress.net/nha-phat-minh-da-den-tung-canh-tranh-voi-thomas-edison-4684315.html")
 #print(sentences)
-page_url <- "https://vnexpress.net/khoa-hoc/ung-dung"
-application_article_contents <-  scrape_vnexpress(
+page_url <- "https://vnexpress.net/khoa-hoc/tin-tuc"
+news_article_contents <-  scrape_vnexpress(
                         main_url = page_url, 
                         num_of_pages = 20
                       )
-application_article_contents |> write_dataset(
-  path="./application_article_contents", 
+news_article_contents |> write_dataset(
+  path="./news_article_contents", 
   format = "parquet"
 ) 

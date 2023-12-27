@@ -18,9 +18,11 @@ source("./tokenizer.R")
 # Read dataset
 invention_article_contents_parquets <- arrow::open_dataset(sources = "./invention_article_contents/")
 application_article_contents_parquets <- arrow::open_dataset(sources = "./application_article_contents/")
+news_article_contents_parquets <- arrow::open_dataset(sources = "./news_article_contents/")
 article_contents_parquet <- rbind(
   invention_article_contents_parquets |> collect(), 
-  application_article_contents_parquets |> collect()
+  application_article_contents_parquets |> collect(),
+  news_article_contents_parquets |> collect()
 )
 # Get sentences vector
 sentences <- article_contents_parquet$sentence
