@@ -78,15 +78,16 @@ get_page_content <- function(url){
 }
 
 scrape_vnexpress <- function(main_url, num_of_pages=1000){
+  print(str_glue("Processing URL : {main_url}", main_url=main_url))
   # Initialize empty articles tibble
   articles <- tibble(
     url = character(),
     sentence = character()
   )
-  # Create progress bar
-  pb = txtProgressBar(min = 1, max = num_of_pages, initial = 1) 
   
   for (page_num in 1:num_of_pages){
+    print(str_glue("Processing page number : {page_num}", page_num=page_num))
+    
     if(page_num == 1){
       url <- main_url
     } else {
@@ -104,11 +105,7 @@ scrape_vnexpress <- function(main_url, num_of_pages=1000){
       )
       articles <- rbind(articles, temp)
     }
-    # Update progress bar
-    setTxtProgressBar(pb, page_num)
   }
-  
-  close(pb)
   
   return (articles)
 }
@@ -117,7 +114,16 @@ scrape_vnexpress <- function(main_url, num_of_pages=1000){
 #print(article_links)
 #sentences <- get_page_content(url = "https://vnexpress.net/nha-phat-minh-da-den-tung-canh-tranh-voi-thomas-edison-4684315.html")
 #print(sentences)
-articles <- scrape_vnexpress(main_url = "https://vnexpress.net/khoa-hoc/phat-minh", num_of_pages = 2)
-View(articles)
-store_path = "./article_contents"
-articles |> write_dataset(path=store_path, format = "parquet") 
+# invention_article_contents <- scrape_vnexpress(
+#   main_url = "https://vnexpress.net/khoa-hoc/phat-minh", num_of_pages = 10
+# )
+# invention_article_contents |> write_dataset(path="./invention_article_contents", format = "parquet") 
+news_article_contents <- scrape_vnexpress(
+  main_url = "https://vnexpress.net/khoa-hoc/tin-tuc", num_of_pages = 20
+)
+news_article_contents |> write_dataset(path="./news_article_contents", format="parquet")
+application_article_contents <- scrape_vnexpress(
+  main_url = "https://vnexpress.net/khoa-hoc/ung-dung",
+  num_of_pages = 20
+)
+application_article_contents |> write_dataset(path = "./application_article_contents", format="parquet")
