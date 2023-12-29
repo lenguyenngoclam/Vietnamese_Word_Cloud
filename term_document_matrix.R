@@ -5,6 +5,7 @@
 # install.packages("arrow")
 # install.packages("stopwords")
 # install.packages("tokenizers")
+library(optparse)
 library(tokenizers)
 library(wordcloud)
 library(RColorBrewer)
@@ -15,15 +16,25 @@ library(stopwords)
 # Get tokenizer
 source("./tokenizer.R")
 
-# Read dataset
-invention_article_contents_parquets <- arrow::open_dataset(sources = "./invention_article_contents/")
-application_article_contents_parquets <- arrow::open_dataset(sources = "./application_article_contents/")
-news_article_contents_parquets <- arrow::open_dataset(sources = "./news_article_contents/")
-article_contents_parquet <- rbind(
-  invention_article_contents_parquets |> collect(), 
-  application_article_contents_parquets |> collect(),
-  news_article_contents_parquets |> collect()
+option_list <- list(
+  make_option(c("--dataset_path"),
+              default = "./temp",
+              help = "Dataset path.
+                      The dataset has to be stored in parquet format."),
+  make_option(c("--store_path"),
+              default = "./temp_tm_matrix",
+              help = "Term-document matrix store path")
 )
+opt_parser <- OptionParser(option_list = option_list)
+opt <- parse_args(opt_parser)
+
+if (is.null(opt$dataset_path) | is.null(opt$store_path)){
+  print_help(opt_parser)
+  stop("At least one argument must be supplied (input file).n", call.=FALSE)
+}
+
+# Read dataset
+article_contents_parquet <- arrow::open_dataset(sources = opt$dataset_path) |> collect()
 # Get sentences vector
 sentences <- article_contents_parquet$sentence
 
@@ -51,7 +62,7 @@ words <- sort(rowSums(matrix),decreasing=TRUE)
 df <- tibble(word = names(words),freq=words)
 
 # Store term-document matrix
-df |> arrow::write_dataset(path="term_document_matrix", format = "parquet")
+df |> arrow::write_dataset(path=opt$store_path, format = "parquet")
 
 # Clear enviroment
 rm(list = ls())

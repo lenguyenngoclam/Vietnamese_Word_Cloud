@@ -7,12 +7,14 @@
 # install.packages("flextable")
 # install.packages("webdriver")
 # install.packages("arrow)
+# install.packages("optparse")
 # webdriver::install_phantomjs()
 ## install klippy for copy-to-clipboard button in code chunks
 # install.packages("remotes")
 # remotes::install_github("rlesur/klippy")
 
 # load packages
+library(optparse)
 library(tidyverse)
 library(arrow)
 library(rvest)
@@ -113,12 +115,32 @@ scrape_vnexpress <- function(main_url, num_of_pages=10){
 #print(article_links)
 #sentences <- get_page_content(url = "https://vnexpress.net/nha-phat-minh-da-den-tung-canh-tranh-voi-thomas-edison-4684315.html")
 #print(sentences)
-page_url <- "https://vnexpress.net/khoa-hoc/tin-tuc"
+option_list <- list(
+  make_option(c("--page_url"),
+              default="https://vnexpress.net/khoa-hoc/tin-tuc", 
+              help="Page URL to crawl article from"),
+  make_option(c("--num_of_pages"),
+              default = 5,
+              help = "Number of pages to crawl articles"),
+  make_option(c("--store_path"), 
+              default="article_contents",
+              help = "Path to store article contents. 
+                      The content will be stored in parquet format")
+)
+opt_parser <- OptionParser(option_list = option_list)
+opt <- parse_args(opt_parser)
+
+if (is.null(opt$page_url) | is.null(opt$num_of_pages) | is.null(opt$store_path)){
+  print_help(opt_parser)
+  stop("At least one argument must be supplied (input file).n", call.=FALSE)
+}
+
+page_url <- opt$page_url
 news_article_contents <-  scrape_vnexpress(
                         main_url = page_url, 
-                        num_of_pages = 20
+                        num_of_pages = opt$num_of_pages
                       )
 news_article_contents |> write_dataset(
-  path="./news_article_contents", 
+  path=opt$store_path, 
   format = "parquet"
 ) 
